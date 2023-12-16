@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    image: bootcamp/ms-api-gateway
+    container_name: ms-api-gateway
+    hostname: MS-API-GATEWAY
+    ports:
+      - "${APP_PORT:-8092}:${APP_PORT_CONTAINER:-8081}"
+    environment:
+      SERVER_PORT: "${APP_PORT_CONTAINER}"
+      LOG_PATH: $LOG_PATH
+      EUREKA_HOSTNAME: $EUREKA_HOSTNAME
+      EUREKA_PORT: $EUREKA_PORT
+    networks:
+      - main-network
+
+networks:
+  main-network:
+      name: $NETWORK_NAME
